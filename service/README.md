@@ -1,104 +1,34 @@
-## terraform_aws_ecs_task_definition
+## Requirements
 
-When applied this module will create the following resources:
+| Name | Version |
+|------|---------|
+| terraform | >= 0.14.4 |
+| aws | >= 3.23.0 |
 
-* AWS ECS Service
-* AWS Autoscaling Target
-* AWS Autoscaling Policy
+## Providers
 
-## Dependencies and Prerequisites
+| Name | Version |
+|------|---------|
+| aws | >= 3.23.0 |
 
-* Terraform > 0.13.2 
-* AWS provider > 3.7 
-* AWS account
+## Inputs
 
-## Variables
-
-### Service
-
-| Variable | Meaning | Optional |
-| :------- | :----- | :----- |
-| name | Name of the service | No |
-| cluster | Name of the cluster | No |
-| launch_type | Launch Type.  FARGATE or EC2.  Defaults to FARGATE. | Yes |
-| task_definition | Name of the task definition | Yes |
-| min_count | The minimum or desired number of tasks. Defaults to 1 | Yes |
-| max_count | The maximum number of tasks supported with autoscaling. Defaults to 1 | Yes |
-| network | Network configuration object | No |
-| load_balancers | Load balancers configuration object | No |
-| target_tracking_scaling_policies | Target tracking scaling policies configuration object | No |
-| tags | Tags map | No |
-
-### Network Configuration
-
-| Variable | Meaning | Optional |
-| :------- | :----- | :----- |
-| vpc_id | ID of the VPC | No |
-| subnet_ids | Subnet IDs | No |
-| security_groups | Security Group names | No |
-| assign_public_ip | Assign a public IP | No |
-
-### Load Balancers Configuration
-
-| Variable | Meaning | Optional |
-| :------- | :----- | :----- |
-| container_name | The name of the container to associate with the load balancer | No |
-| container_port | The port on the container to associate with the load balancer | No |
-| target_group_arn | The ARN of the Load Balancer target group to associate with the service | No |
-
-### Target Tracking Scaling Policy Configuration
-
-| Variable | Meaning | Optional |
-| :------- | :----- | :----- |
-| metric | The metric type. e.g. ECSServiceAverageCPUUtilization, ECSServiceAverageMemoryUtilization, ALBRequestCountPerTarget | No |
-| target_value | The target value for the metric. e.g. 70 | No |
-| scale_in_cooldown | The amount of time, in seconds, after a scale in activity completes before another scale in activity can start. | No |
-| scale_out_cooldown |  The amount of time, in seconds, after a scale out activity completes before another scale out activity can start. | No |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| cluster | The ECS cluster to associate with the service. | `string` | n/a | yes |
+| launch\_type | Launch Type.  FARGATE or EC2.  Defaults to FARGATE | `string` | `"FARGATE"` | no |
+| load\_balancers | n/a | <pre>list(object({<br>    container_name   = string<br>    container_port   = number<br>    target_group_arn = string<br>  }))</pre> | `[]` | no |
+| max\_count | The maximum number of tasks supported with autoscaling. | `number` | `1` | no |
+| min\_count | The desired (and minimum for scaling) number of tasks. | `number` | `1` | no |
+| name | The name of the ECS Service | `string` | n/a | yes |
+| network\_configurations | n/a | <pre>list(object({<br>    subnet_ids       = list(string)<br>    security_groups  = list(string)<br>    assign_public_ip = bool<br>  }))</pre> | `[]` | no |
+| tags | Tags map | `map(string)` | `{}` | no |
+| target\_tracking\_scaling\_policies | n/a | <pre>list(object({<br>    metric             = string<br>    target_value       = number<br>    scale_in_cooldown  = number<br>    scale_out_cooldown = number<br>  }))</pre> | `[]` | no |
+| task\_definition | The name of the ECS Task Definition | `string` | n/a | yes |
 
 ## Outputs
-| Output | Description |
-| :------- | :----- |
+
+| Name | Description |
+|------|-------------|
 | arn | ARN of the managed ECS Service. |
 | service | The ECS Service resource created by this module. |
-
-## Usage
-
-To import the module add the following to the your TF file:
-```
-module "my_ecs_service" {
-
-  source = "git::https://git-codecommit.eu-west-1.amazonaws.com/v1/repos/terraform-aws-ecs-service?ref=0.2.0"
-
-  name             = "MyServiceName"
-  cluster          = "MyClusterName"
-  task_definition  = "MyTaskDefinitionName"
-  desired_count    = 2
-  target_group_arn = "arn:aws:elasticloadbalancing:eu-west-1:1234567797:targetgroup/ecs-UAT/c63b4fef71808c72"
-
-  container = {
-    name = "MyContainerName"
-    port = 8080
-  }
-
-  network = {
-    vpc_id           = "vpc-xxxxxx"
-    subnet_ids       = [ "subnet-xxxxxx", "subnet-yyyyyy" ]
-    security_groups  = [ "MySecurityGroupNameX", "MySecurityGroupNameY"]
-  }
-
-}
-
-```
-
-### Terraform commands
-* terraform init              : Initialise the module
-* terraform plan              : See a plan of changes
-* terraform apply             : Apply changes
-
-### Make commands ( if a Makefile is present )
-* make plan                   : Plan
-* make apply                  : Apply
-* make auto-apply             : Auto apply ( no prompt )
-
-### Support 
-Contact <techcloudops@sjpwealth.onmicrosoft.com>
