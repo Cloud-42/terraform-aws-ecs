@@ -31,28 +31,22 @@ variable "max_count" {
   default     = 1
 }
 
-variable "network" {
-  type = object({
-    vpc_id           = string
+variable "network_configurations" {
+  type = list(object({
     subnet_ids       = list(string)
     security_groups  = list(string)
     assign_public_ip = bool
-  })
+  }))
+  default = []
 }
-
-#variable "load_balancers" {
-#  type = list(map(string))
-#}
 
 variable "load_balancers" {
   type = list(object({
-    container_name    = string
-    container_port    = number
+    container_name   = string
+    container_port   = number
     target_group_arn = string
   }))
   default = []
-
-
 }
 
 variable "target_tracking_scaling_policies" {
