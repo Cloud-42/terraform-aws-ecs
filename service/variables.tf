@@ -40,22 +40,11 @@ variable "network_configurations" {
   default = []
 }
 
-
 variable "load_balancers" {
   type = list(object({
     container_name   = string
     container_port   = number
     target_group_arn = string
-  }))
-  default = []
-}
-
-variable "target_tracking_scaling_policies" {
-  type = list(object({
-    metric             = string
-    target_value       = number
-    scale_in_cooldown  = number
-    scale_out_cooldown = number
   }))
   default = []
 }
