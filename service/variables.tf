@@ -49,6 +49,16 @@ variable "load_balancers" {
   default = []
 }
 
+variable "target_tracking_scaling_policies" {
+  type = list(object({
+    metric             = string
+    target_value       = number
+    scale_in_cooldown  = number
+    scale_out_cooldown = number
+  }))
+  default = []
+}
+
 variable "tags" {
   description = "Tags map"
   type        = map(string)
