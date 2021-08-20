@@ -3,9 +3,9 @@
 #-----------------------------------------------
 resource "aws_ecs_service" "this" {
 
-  cluster       = var.cluster
-  name          = var.name
-  launch_type   = var.launch_type
+  cluster = var.cluster
+  name    = var.name
+  #launch_type   = var.launch_type
   desired_count = var.min_count
 
   task_definition = var.task_definition
@@ -19,11 +19,21 @@ resource "aws_ecs_service" "this" {
     }
   }
 
-  network_configuration {
-    assign_public_ip = var.network.assign_public_ip
-    security_groups  = var.network.security_groups
-    subnets          = var.network.subnet_ids
+  dynamic "network_configuration" {
+    for_each = var.network_configurations
+    content {
+      assign_public_ip = network_configuration.value["assign_public_ip"]
+      security_groups  = network_configuration.value["security_groups"]
+      subnets          = network_configuration.value["subnets"]
+    }
   }
+
+  #network_configuration {
+
+  #  assign_public_ip = var.network.assign_public_ip
+  #  security_groups  = var.network.security_groups
+  #  subnets          = var.network.subnet_ids
+  #}
 
   propagate_tags = "TASK_DEFINITION"
 
