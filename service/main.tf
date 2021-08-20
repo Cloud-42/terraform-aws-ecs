@@ -5,7 +5,7 @@ resource "aws_ecs_service" "this" {
 
   cluster = var.cluster
   name    = var.name
-  #launch_type   = var.launch_type
+  launch_type   = var.launch_type
   desired_count = var.min_count
 
   task_definition = var.task_definition
