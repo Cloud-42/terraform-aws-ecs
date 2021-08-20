@@ -18,8 +18,8 @@ variable "fargate_cpu" {
 }
 
 variable "cpu" {
-  description = "CPU to assign to Fargate task when launch type is EC2"
-  default     = "512"
+  description = "CPU to assign to the task when launch type is EC2"
+  default     = null
 }
 
 variable "fargate_memory" {
@@ -28,7 +28,7 @@ variable "fargate_memory" {
 }
 variable "memory" {
   description = "Memory to assign when launch type is EC2"
-  default     = "1024"
+  default     = null
 }
 
 variable "tags" {
@@ -40,7 +40,7 @@ variable "tags" {
 variable "network_mode" {
   description = "Network mode. The valid values are none, bridge, awsvpc, and host."
   type        = string
-  default     = "none"
+  default     = null
 }
 
 variable "task_role_arn" {
