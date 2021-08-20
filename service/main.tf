@@ -28,15 +28,7 @@ resource "aws_ecs_service" "this" {
     }
   }
 
-  #network_configuration {
-
-  #  assign_public_ip = var.network.assign_public_ip
-  #  security_groups  = var.network.security_groups
-  #  subnets          = var.network.subnet_ids
-  #}
-
   propagate_tags = "TASK_DEFINITION"
 
   tags = var.tags
-
 }
