@@ -12,8 +12,8 @@ module "my_ecs_service_fargate" {
     target_group_arn = aws_alb_target_group.ecs_service.arn
   }]
   network = {
-    vpc_id           = "vpc-xxxxxx"
-    subnet_ids       = [ "subnet-xxxxxx", "subnet-yyyyyy" ]
+    vpc_id           = data.terraform_remote_state.core.outputs.vpc_id
+    subnet_ids       = data.terraform_remote_state.core.outputs.private_subnets
     security_groups  = [ "MySecurityGroupNameX", "MySecurityGroupNameY"]
   }
 }
