@@ -28,7 +28,7 @@ resource "aws_ecs_service" "this" {
     }
   }
 
-  propagate_tags = "TASK_DEFINITION"
+  propagate_tags = var.propagate_tags
 
   tags = var.tags
 }

@@ -64,3 +64,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "propagate_tags" {
+  description = "Whether to propagate the tags from the task definition or the service to the tasks. SERVICE or TASK_DEFINITION"
+  type        = string
+  default     = "TASK_DEFINITION"
+}
