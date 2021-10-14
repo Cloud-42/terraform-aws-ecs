@@ -11,10 +11,10 @@ module "my_ecs_service_fargate" {
     container_port   = var.containerPort
     target_group_arn = aws_alb_target_group.ecs_service.arn
   }]
-  network = {
-    vpc_id           = data.terraform_remote_state.core.outputs.vpc_id
-    subnet_ids       = data.terraform_remote_state.core.outputs.private_subnets
+  network_configurations = {
+    subnets          = data.terraform_remote_state.core.outputs.private_subnets
     security_groups  = [ "MySecurityGroupNameX", "MySecurityGroupNameY"]
+    assign_public_ip = false
   }
 }
 
