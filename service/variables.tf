@@ -33,7 +33,7 @@ variable "max_count" {
 
 variable "network_configurations" {
   type = list(object({
-    subnet_ids       = list(string)
+    subnets       = list(string)
     security_groups  = list(string)
     assign_public_ip = bool
   }))
