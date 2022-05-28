@@ -51,7 +51,7 @@ variable "execution_role_arn" {
   description = "ARN of the IAM role for the task to use"
 }
 
-variable "volumess" {
+variable "volumes" {
   type = list(object({
     docker_volume_configuration                  = map(string)
     efs_volume_configuration                     = map(string)
