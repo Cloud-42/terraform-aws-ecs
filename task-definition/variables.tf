@@ -50,3 +50,14 @@ variable "task_role_arn" {
 variable "execution_role_arn" {
   description = "ARN of the IAM role for the task to use"
 }
+
+variable "volumess" {
+  type = list(object({
+    docker_volume_configuration                  = map(string)
+    efs_volume_configuration                     = map(string)
+    fsx_windows_file_server_volume_configuration = map(string)
+    host_path                                    = string
+    name                                         = string
+  }))
+  default = []
+}
