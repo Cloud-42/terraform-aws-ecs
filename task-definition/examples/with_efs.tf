@@ -57,7 +57,7 @@ module "core" {
     logDriver = var.logDriver
     options = {
       awslogs-region        = var.log_region
-      awslogs-group         = "/ecs/core-node"
+      awslogs-group         = "/ecs/core"
       awslogs-stream-prefix = var.log_stream_prefix
     }
   }
