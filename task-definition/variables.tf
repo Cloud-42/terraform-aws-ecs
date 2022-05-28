@@ -52,7 +52,10 @@ variable "execution_role_arn" {
 }
 
 variable "volumes" {
+  description = "(Optional) A set of volume blocks that containers in your task may use"
   type = list(object({
+    host_path = string
+    name      = string
     docker_volume_configuration = list(object({
       autoprovision = bool
       driver_opts   = map(string)
@@ -65,11 +68,11 @@ variable "volumes" {
       root_directory          = string
       transit_encryption      = string
       transit_encryption_port = number
-      access_point_id         = string
-      iam                     = string
+      authorization_config = list(object({
+        access_point_id = string
+        iam             = string
+      }))
     }))
-    host_path = string
-    name      = string
   }))
   default = []
 }
