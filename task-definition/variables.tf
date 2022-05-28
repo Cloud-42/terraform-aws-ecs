@@ -54,15 +54,15 @@ variable "execution_role_arn" {
 variable "volumes" {
   description = "(Optional) A set of volume blocks that containers in your task may use"
   type = list(object({
-    host_path = string
+    #host_path = string
     name      = string
-    docker_volume_configuration = list(object({
-      autoprovision = bool
-      driver_opts   = map(string)
-      driver        = string
-      labels        = map(string)
-      scope         = string
-    }))
+    #docker_volume_configuration = list(object({
+    #  autoprovision = bool
+    #  driver_opts   = map(string)
+    #  driver        = string
+    #  labels        = map(string)
+    #  scope         = string
+    #}))
     efs_volume_configuration = list(object({
       file_system_id          = string
       root_directory          = string
