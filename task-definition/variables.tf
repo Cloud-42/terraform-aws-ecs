@@ -50,3 +50,28 @@ variable "task_role_arn" {
 variable "execution_role_arn" {
   description = "ARN of the IAM role for the task to use"
 }
+
+variable "volumes" {
+  description = "(Optional) A set of volume blocks that containers in your task may use"
+  type = list(object({
+    name      = string
+    docker_volume_configuration = list(object({
+      autoprovision = bool
+      driver_opts   = map(string)
+      driver        = string
+      labels        = map(string)
+      scope         = string
+    }))
+    efs_volume_configuration = list(object({
+      file_system_id          = string
+      root_directory          = string
+      transit_encryption      = string
+      transit_encryption_port = number
+      authorization_config = list(object({
+        access_point_id = string
+        iam             = string
+      }))
+    }))
+  }))
+  default = []
+}
