@@ -53,11 +53,23 @@ variable "execution_role_arn" {
 
 variable "volumes" {
   type = list(object({
-    docker_volume_configuration                  = map(string)
-    efs_volume_configuration                     = map(string)
-    fsx_windows_file_server_volume_configuration = map(string)
-    host_path                                    = string
-    name                                         = string
+    docker_volume_configuration = list(object({
+      autoprovision = bool
+      driver_opts   = map(string)
+      driver        = string
+      labels        = map(string)
+      scope         = string
+    }))
+    efs_volume_configuration = list(object({
+      file_system_id          = string
+      root_directory          = string
+      transit_encryption      = string
+      transit_encryption_port = number
+      access_point_id         = string
+      iam                     = string
+    }))
+    host_path = string
+    name      = string
   }))
   default = []
 }

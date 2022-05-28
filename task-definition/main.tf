@@ -16,11 +16,36 @@ resource "aws_ecs_task_definition" "service" {
   dynamic "volume" {
     for_each = var.volumes
     content {
-      docker_volume_configuration                  = volume["docker_volume_configuration"]
-      efs_volume_configuration                     = volume["efs_volume_configuration"]
-      fsx_windows_file_server_volume_configuration = volume["fsx_windows_file_server_volume_configuration"]
-      host_path                                    = volume["host_path"]
-      name                                         = volume["name"]
+
+      dynamic "docker_volume_configuration" {
+        for_each = var.volumes
+        content {
+          autoprovision = volume["autoprovision"]
+          driver_opts   = volume["driver_opts"]
+          driver        = volume["driver"]
+          labels        = volume["labels"]
+          scope         = volume["scope"]
+        }
+      }
+
+      dynamic "efs_volume_configuration" {
+        for_each = var.volumes
+        content {
+          file_system_id          = volume["file_system_id"]
+          root_directory          = volume["root_directory"]
+          transit_encryption      = volume["transit_encryption"]
+          transit_encryption_port = volume["transit_encryption_port"]
+          dynamic "authorization_config" {
+            for_each = var.volumes
+            content {
+              access_point_id = volume["access_point_id"]
+              iam             = volume["iam"]
+            }
+          }
+        }
+      }
+      host_path = volume["host_path"]
+      name      = volume["name"]
     }
   }
 
