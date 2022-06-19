@@ -49,5 +49,8 @@ resource "aws_ecs_task_definition" "service" {
       }
     }
   }
+  ephemeral_storage {
+    size_in_gib = var.ephemeral_storage_size_in_gib
+  }
   tags = var.tags
 }

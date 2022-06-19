@@ -54,7 +54,7 @@ variable "execution_role_arn" {
 variable "volumes" {
   description = "(Optional) A set of volume blocks that containers in your task may use"
   type = list(object({
-    name      = string
+    name = string
     docker_volume_configuration = list(object({
       autoprovision = bool
       driver_opts   = map(string)
@@ -74,4 +74,10 @@ variable "volumes" {
     }))
   }))
   default = []
+}
+
+variable "ephemeral_storage_size_in_gib" {
+  description = "The total amount, in GiB, of ephemeral storage to set for the task."
+  type        = number
+  default     = 21
 }
