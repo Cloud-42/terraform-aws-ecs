@@ -33,7 +33,7 @@ variable "max_count" {
 
 variable "network_configurations" {
   type = list(object({
-    subnets       = list(string)
+    subnets          = list(string)
     security_groups  = list(string)
     assign_public_ip = bool
   }))
@@ -69,4 +69,14 @@ variable "propagate_tags" {
   description = "Whether to propagate the tags from the task definition or the service to the tasks. SERVICE or TASK_DEFINITION"
   type        = string
   default     = "TASK_DEFINITION"
+}
+
+variable "service_registries" {
+  type = list(object({
+    registry_arn   = optional(string) 
+    port           = optional(number)
+    container_port = optional(number)
+    container_name = optional(string)
+  }))
+  default = []
 }
