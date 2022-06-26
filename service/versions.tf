@@ -1,8 +1,7 @@
-# Set required TF & AWS provider versions
 terraform {
-  required_version = ">= 0.14.4"
-
+  required_version = ">= 1.0.7"
   required_providers {
-    aws = ">= 3.28.0"
+    aws = ">= 4.20.1"
   }
+  experiments = [module_variable_optional_attrs]
 }
