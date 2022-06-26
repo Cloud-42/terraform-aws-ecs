@@ -73,7 +73,7 @@ variable "propagate_tags" {
 
 variable "service_registries" {
   type = list(object({
-    registry_arn   = optional(string) 
+    registry_arn   = optional(string)
     port           = optional(number)
     container_port = optional(number)
     container_name = optional(string)
