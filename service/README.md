@@ -28,6 +28,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster"></a> [cluster](#input\_cluster) | The ECS cluster to associate with the service. | `string` | n/a | yes |
+| <a name="input_enable_execute_command"></a> [enable\_execute\_command](#input\_enable\_execute\_command) | Specifies whether to enable Amazon ECS Exec for the tasks within the service. | `bool` | `false` | no |
 | <a name="input_launch_type"></a> [launch\_type](#input\_launch\_type) | Launch Type.  FARGATE or EC2.  Defaults to FARGATE | `string` | `"FARGATE"` | no |
 | <a name="input_load_balancers"></a> [load\_balancers](#input\_load\_balancers) | n/a | <pre>list(object({<br>    container_name   = string<br>    container_port   = number<br>    target_group_arn = string<br>  }))</pre> | `[]` | no |
 | <a name="input_max_count"></a> [max\_count](#input\_max\_count) | The maximum number of tasks supported with autoscaling. | `number` | `1` | no |
