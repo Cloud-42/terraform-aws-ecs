@@ -38,7 +38,8 @@ resource "aws_ecs_service" "this" {
     }
   }
 
-  propagate_tags = var.propagate_tags
+  enable_execute_command = var.enable_execute_command
+  propagate_tags         = var.propagate_tags
 
   tags = var.tags
 }
