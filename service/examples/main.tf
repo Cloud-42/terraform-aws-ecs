@@ -1,5 +1,5 @@
 module "my_ecs_service_fargate" {
-  source = "git::https://git-codecommit.eu-west-1.amazonaws.com/v1/repos/terraform-aws-ecs-service?ref=0.2.0"
+  source = "git::https://git-codecommit.eu-west-1.amazonaws.com/v1/repos/terraform-aws-ecs-service?ref=v0.7.1"
 
   name             = "MyServiceName"
   cluster          = "MyClusterName"
@@ -20,7 +20,7 @@ module "my_ecs_service_fargate" {
 }
 
 module "my_ecs_service_ec2" {
-  source = "git::https://git-codecommit.eu-west-1.amazonaws.com/v1/repos/terraform-aws-ecs-service?ref=0.2.0"
+  source = "git::https://git-codecommit.eu-west-1.amazonaws.com/v1/repos/terraform-aws-ecs-service?ref=v0.7.1"
 
   name             = "MyServiceName"
   cluster          = "MyClusterName"
