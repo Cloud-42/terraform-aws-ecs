@@ -49,14 +49,34 @@ variable "load_balancers" {
   default = []
 }
 
-variable "target_tracking_scaling_policies" {
-  type = list(object({
-    metric             = string
-    target_value       = number
+variable "cpu_autoscaling_profiles_config" {
+  type = map(object({
+    target             = number
+    max_capacity       = number
+    min_capacity       = number
     scale_in_cooldown  = number
     scale_out_cooldown = number
   }))
-  default = []
+  default = null
+}
+
+variable "cpu_autoscaling_profile" {
+  default = null
+}
+
+variable "memory_autoscaling_profiles_config" {
+  type = map(object({
+    target             = number
+    max_capacity       = number
+    min_capacity       = number
+    scale_in_cooldown  = number
+    scale_out_cooldown = number
+  }))
+  default = null
+}
+
+variable "memory_autoscaling_profile" {
+  default = null
 }
 
 variable "tags" {
